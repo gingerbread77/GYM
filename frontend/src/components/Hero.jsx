@@ -13,7 +13,7 @@ const Hero = () => {
         <div className="text-xl font-bold mb-15">
           <p>Push Beyond Limits, Unlock your Strength.</p>
         </div>
-        <Link to="/register" className="px-5 py-5 text-xl bg-orange-500 cursor-pointer rounded-full font-bold border-none hover:bg-orange-400 focus:outline-none">Get Started</Link>
+        <Link to="/register" className="p-5 text-xl bg-orange-500 cursor-pointer rounded-full font-bold border-none hover:bg-orange-400 focus:outline-none">Get Started</Link>
       </div>
     </section>
   )
