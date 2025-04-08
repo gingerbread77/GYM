@@ -5,6 +5,23 @@ import { Link } from 'react-router-dom'
 const Register = () => {
 
   const [isLogin, setIsLogin] = useState(false);
+  const [inputData, setInputData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <section className='h-screen bg-cover flex' style={{ backgroundImage: `url(${gym_bg})` }}>
@@ -15,18 +32,18 @@ const Register = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 {isLogin ? 'Login' : 'Create an account'}
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                  <input type="email" name="email" id="email" placeholder="email@email.com" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required />
+                  <input type="email" name="email" id="email" placeholder="email@email.com" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required value={inputData.email} onChange={handleChange} />
                 </div>
                 <div>
                   <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                  <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required />
+                  <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required value={inputData.password} onChange={handleChange} />
                 </div>
                 <div>
                   {isLogin ? '' : <><label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required /></>}
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-300 focus:outline-none focus:ring-2" required value={inputData.confirmPassword} onChange={handleChange} /></>}
                 </div>
                 <div className="flex items-start">
 
