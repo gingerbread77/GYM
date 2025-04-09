@@ -25,6 +25,8 @@ const Register = () => {
 
   return (
     <section className='h-screen bg-cover flex' style={{ backgroundImage: `url(${gym_bg})` }}>
+      <div className="h-screen absolute top-[70px] inset-0 bg-black/50 z-0">
+      <div className="relative z-10 w-full max-w-md px-6">
       <div className="flex flex-col justify-center px-6 py-8 ml-[10%] min-w-[500px] md:h-screen lg:py-0">
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -73,6 +75,8 @@ const Register = () => {
               </form>
             </>
           </div>
+        </div>
+        </div>
         </div>
       </div>
     </section>

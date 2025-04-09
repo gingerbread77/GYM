@@ -10,7 +10,7 @@ const Navbar = () => {
     { path: "/faq", label: "FAQ" },
   ];
   return (
-    <nav className="flex bg-black justify-between items-center px-8 py-5 text-white">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 flex bg-black justify-between items-center px-8 py-5 text-white">
       <NavLink to="/">
         <h1 className="text-2xl font-bold">iFitness</h1>
       </NavLink>
