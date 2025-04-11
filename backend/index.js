@@ -14,6 +14,7 @@ app.use(express.json())
 app.use(cors())
 
 // routes
+// register
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
@@ -32,6 +33,28 @@ app.post('/register', async (req, res) => {
     res.json({ success: false, msg: err.message })
   }
 })
+
+// login
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ success: false, msg: "Missing Details" });
+  }
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user || user.password !== password) {
+      return res.status(400).json({ success: false, msg: "You have entered incorrect email or password." });
+    }
+
+    res.status(200).json({ success: true, msg: "Login successful" });
+  } catch (err) {
+    res.status(500).json({ success: false, msg: err.message });
+  }
+});
+
+
 
 // connect to database
 const connectDB = async () => {
