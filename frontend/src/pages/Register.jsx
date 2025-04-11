@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import gym_bg from '../assets/gym_bg.jpg';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import RegisterForm from '../components/RegisterForm';
@@ -29,11 +29,11 @@ const Register = () => {
     }))
   }
 
-  // form validation
-  const handleValidation = () => {
+  // register form validation
+  const handleFormValidation = () => {
     // // validate password against the regex pattern
     if (!passwordRegex.test(inputData.password)) {
-      toast.error("Invalid password...");
+      toast.error("Password must have at least 8 characters and contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character.");
       return false;
     }
     // check to see if passwords match
@@ -44,16 +44,53 @@ const Register = () => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleRegistrationSubmit = async (e) => {
     e.preventDefault();
 
-    if (!handleValidation()) return;
+    if (!handleFormValidation()) return;
     try {
       const result = await axios.post('http://localhost:8000/register', inputData);
       console.log(result);
 
       if (result.data.success) {
-        toast.success("Account created successfully!")
+        toast.success("Account created successfully!");
+        // show the login form
+        setIsLogin(true);
+        // clear inputData 
+        setInputData({
+          email: '',
+          password: '',
+          confirmPassword: ''
+        })
+      } else {
+        toast.error(result.data.msg)
+      }
+    } catch (err) {
+      if (err.response.status === 400) {
+        toast.error(err.response.data.msg);
+      } else {
+        toast.error("Something went wrong. Please try again later.")
+      }
+    }
+  }
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const result = await axios.post('http://localhost:8000/login', inputData);
+      console.log(result);
+
+      if (result.data.success) {
+        toast.success("Login successfully!");
+        // clear inputData 
+        setInputData({
+          email: '',
+          password: '',
+          confirmPassword: ''
+        })
+        // navigate to home page
+        navigate('/');
       } else {
         toast.error(result.data.msg)
       }
@@ -77,14 +114,14 @@ const Register = () => {
                   <LoginForm
                     inputData={inputData}
                     handleChange={handleChange}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={handleLoginSubmit}
                     title="Sign in"
                   />
                 ) : (
                   <RegisterForm
                     inputData={inputData}
                     handleChange={handleChange}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={handleRegistrationSubmit}
                     title="Create an account"
                   />
                 )}
